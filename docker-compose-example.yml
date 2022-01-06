@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+
+  newsfeed:
+    image: alexwoolford/newsfeed:1.0.0
+    container_name: newsfeed
+    restart: unless-stopped
+    depends_on:
+      - redis
+    hostname: newsfeed
+    environment:
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_DATABASE: 1
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: pkc-lzvrd.us-west4.gcp.confluent.cloud:9092
+      SPRING_KAFKA_SECURITY_PROTOCOL: SASL_SSL
+      SPRING_KAFKA_PROPERTIES_SASL_JAAS_CONFIG: org.apache.kafka.common.security.plain.PlainLoginModule   required username="********"   password="********";
+      SPRING_KAFKA_PROPERTIES_SASL_MECHANISM: PLAIN
+      SPRING_KAFKA_CONSUMER_AUTO_OFFSET_RESET: earliest
+      RSS_FEED_URLS[0]: https://rss.app/feeds/a74t9VrimjtL7Mzl.xml
+      RSS_FEED_URLS[1]: https://feeds.feedburner.com/sc247/rss/supplychain247
+      RSS_FEED_URLS[2]: https://rss.app/feeds/L8Unydalin1riPwM.xml
+      RSS_FEED_URLS[3]: https://www.supplychaindive.com/feeds/news/
+      AWS_ACCESS_KEY_ID: XXXXXXXX
+      AWS_SECRET_ACCESS_KEY: XXXXXXXX
+
+
