@@ -4,6 +4,7 @@ This Dockerized microservice polls RSS feeds, performs entity resolution on the 
 
 We created this, specifically, to build a supply-chain knowledge graph so we can understand the relationships between organizations, locations, events, etc...
 
+![supply-chain-knowledge-graph](img/supply-chain-knowledge-graph.png)
 
     mvn spring-boot:build-image -Dspring-boot.build-image.imageName=alexwoolford/supply-chain-newsfeed:1.0.0
 
