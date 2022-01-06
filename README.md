@@ -7,7 +7,6 @@ We created this, specifically, to build a supply-chain knowledge graph so we can
 
     mvn spring-boot:build-image -Dspring-boot.build-image.imageName=alexwoolford/supply-chain-newsfeed:1.0.0
 
-
 Put the configuration in a file, e.g. `snowplow-neo4j-sink.json`:
 
     {
@@ -17,8 +16,8 @@ Put the configuration in a file, e.g. `snowplow-neo4j-sink.json`:
         "neo4j.authentication.basic.username": "neoadmin",
         "neo4j.authentication.basic.password": "V1ctoria",
         "neo4j.server.uri": "neo4j://neo4j.woolford.io:7687",
-        "neo4j.topic.cypher.sc-article-entity": "CALL apoc.cypher.doIt(\"MERGE(a:Article {link: '\" + event.link + \"'}) MERGE(e:\" + event.entityType + \") SET e.text = '\" + event.entityValue + \"' MERGE(a)-[:HAS_ENTITY]->(e)\", {}) YIELD value RETURN value",
-        "neo4j.database": "supplychain",
+        "neo4j.topic.cypher.sc-article-entity": "CALL apoc.cypher.doIt(\"MERGE(a:Article {link: '\" + event.link + \"'}) MERGE(e:\" + event.entityType + \") SET e.text = '\" + event.entityValue + \"' MERGE(a)-[:HAS_ENTITY {timestamp: \" + event.timestamp + \"}]->(e)\", {}) YIELD value RETURN value",
+        "neo4j.database": "supplychainkg",
         "topics": "sc-article-entity",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter.schemas.enable": "false"
