@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
 
   newsfeed:
-    image: alexwoolford/supply-chain-newsfeed:1.0.0
+    image: alexwoolford/supply-chain-newsfeed:1.0.1
     container_name: supply-chain-newsfeed
     restart: unless-stopped
     depends_on:

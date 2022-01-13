@@ -7,6 +7,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import io.woolford.entity.ArticleRecord;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,8 @@ public class Republisher {
 
                 // don't publish to Kafka if it's already been put in the topic
                 if (Boolean.FALSE.equals(redisTemplate.hasKey(article.getLink()))){
-                    kafkaTemplate.send("sc-article", articleJson);
+                    ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>("sc-article", article.getLink(), articleJson);
+                    kafkaTemplate.send(producerRecord);
                     redisTemplate.opsForValue().set(article.getLink(), articleJson);
                     LOG.info(article.toString());
                 }
