@@ -27,7 +27,7 @@ public class ComprehendArticles {
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
 
-    @KafkaListener(topics = "sc-article", groupId = "comprehend-articles-4")
+    @KafkaListener(topics = "sc-article", groupId = "comprehend-articles")
     private void enrichArticles(String message) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();

@@ -6,10 +6,10 @@ We created this, specifically, to build a supply-chain knowledge graph so we can
 
 ![supply-chain-knowledge-graph](img/supply-chain-knowledge-graph.png)
 
-    mvn spring-boot:build-image -Dspring-boot.build-image.imageName=alexwoolford/supply-chain-newsfeed:1.0.1
+    mvn spring-boot:build-image -Dspring-boot.build-image.imageName=alexwoolford/supply-chain-newsfeed:1.0.3
 
 This service uses two topics:
-1. `sc-article`: keyed by article URL, compacted
+1. `sc-article`: keyed by article URL, compacted, infinite retention
 2. `sc-article-entity`
 
 Here's an example of an `sc-article` message value:
